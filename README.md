@@ -20,7 +20,12 @@ Or build :
 
 # Supported tags
 
-* [![](https://images.microbadger.com/badges/version/zeiot/rpi-grafana.svg)](http://microbadger.com/images/zeiot/rpi-grafana "Get your own version badge on microbadger.com")
+* [![](https://images.microbadger.com/badges/version/zeiot/rpi-prometheus:1.3.0.svg)](https://microbadger.com/images/zeiot/rpi-prometheus:1.3.0 "Get your own version badge on microbadger.com")
+* [![](https://images.microbadger.com/badges/version/zeiot/rpi-prometheus:1.2.2.svg)](https://microbadger.com/images/zeiot/rpi-prometheus:1.2.2 "Get your own version badge on microbadger.com")
+* [![](https://images.microbadger.com/badges/version/zeiot/rpi-prometheus:1.2.1.svg)](https://microbadger.com/images/zeiot/rpi-prometheus:1.2.1 "Get your own version badge on microbadger.com")
+* [![](https://images.microbadger.com/badges/version/zeiot/rpi-prometheus:1.2.0.svg)](https://microbadger.com/images/zeiot/rpi-prometheus:1.2.0 "Get your own version badge on microbadger.com")
+* [![](https://images.microbadger.com/badges/version/zeiot/rpi-prometheus:1.1.3.svg)](https://microbadger.com/images/zeiot/rpi-prometheus:1.1.3 "Get your own version badge on microbadger.com")
+* [![](https://images.microbadger.com/badges/version/zeiot/rpi-prometheus:1.1.2.svg)](https://microbadger.com/images/zeiot/rpi-prometheus:1.1.2 "Get your own version badge on microbadger.com")
 
 
 ## License
