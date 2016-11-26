@@ -1,6 +1,10 @@
 RPI Prometheus ChangeLog
 =================================
 
+# Version 1.1.0 (11/26/2016)
+
+- Add Prometheus 1.4.0
+
 # Version 1.0.0 (11/02/2016)
 
 - Add Prometheus 1.3.0
