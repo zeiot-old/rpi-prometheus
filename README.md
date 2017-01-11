@@ -11,11 +11,11 @@ Configure binfmt-support on the Docker host (works locally or remotely, i.e: usi
 
 Then you can run an armhf image from your x86_64 Docker host :
 
-    $ make run version=3.1
+    $ make run version=x.x
 
 Or build :
 
-    $ make build version=3.1
+    $ make build version=x.x
 
 
 # Supported tags
