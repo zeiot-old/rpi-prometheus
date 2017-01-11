@@ -12,6 +12,7 @@ dependencies:
     - "~/docker"
   override:
     - docker info
+    - docker run --rm --privileged multiarch/qemu-user-static:register --reset
     - docker build -t zeiot/prometheus:1.1 1.1
 
 test:
