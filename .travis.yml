@@ -10,3 +10,5 @@ script:
   - docker run zeiot/prometheus:1.2 prometheus-1.2 ; sleep 10 ; docker stop prometheus-1.2
   - docker build -t zeiot/prometheus:1.3 1.3
   - docker run zeiot/prometheus:1.3 prometheus-1.3 ; sleep 10 ; docker stop prometheus-1.3
+  - docker build -t zeiot/prometheus:1.4 1.4
+  - docker run zeiot/prometheus:1.4 prometheus-1.4 ; sleep 10 ; docker stop prometheus-1.4
