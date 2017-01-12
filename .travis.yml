@@ -5,10 +5,10 @@ language: bash
 script:
   - docker run --rm --privileged multiarch/qemu-user-static:register --reset
   - docker build -t zeiot/prometheus:1.1 1.1
-  - docker run zeiot/prometheus:1.1 prometheus-1.1 ; sleep 10 ; docker stop prometheus-1.1
+  - docker run zeiot/prometheus:1.1 prometheus-1.1 -h; sleep 10 ; docker stop prometheus-1.1
   - docker build -t zeiot/prometheus:1.2 1.2
-  - docker run zeiot/prometheus:1.2 prometheus-1.2 ; sleep 10 ; docker stop prometheus-1.2
+  - docker run zeiot/prometheus:1.2 prometheus-1.2 -h; sleep 10 ; docker stop prometheus-1.2
   - docker build -t zeiot/prometheus:1.3 1.3
-  - docker run zeiot/prometheus:1.3 prometheus-1.3 ; sleep 10 ; docker stop prometheus-1.3
+  - docker run zeiot/prometheus:1.3 prometheus-1.3 -h; sleep 10 ; docker stop prometheus-1.3
   - docker build -t zeiot/prometheus:1.4 1.4
-  - docker run zeiot/prometheus:1.4 prometheus-1.4 ; sleep 10 ; docker stop prometheus-1.4
+  - docker run zeiot/prometheus:1.4 prometheus-1.4 -h; sleep 10 ; docker stop prometheus-1.4
