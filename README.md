@@ -1,7 +1,6 @@
 # RPI Prometheus
 
 * Master : [![Circle CI](https://circleci.com/gh/zeiot/rpi-prometheus/tree/master.svg?style=svg)](https://circleci.com/gh/zeiot/rpi-prometheus/tree/master) [![Build Status](https://travis-ci.org/zeiot/rpi-prometheus.svg?branch=master)](https://travis-ci.org/zeiot/rpi-prometheus)
-* Develop : [![Circle CI](https://circleci.com/gh/zeiot/rpi-prometheus/tree/develop.svg?style=svg)](https://circleci.com/gh/zeiot/rpi-prometheus/tree/develop) [![Build Status](https://travis-ci.org/zeiot/rpi-prometheus.svg?branch=develop)](https://travis-ci.org/zeiot/rpi-prometheus)
 
 Docker image of [Prometheus][] to use on a [Raspberry PI][].
 
