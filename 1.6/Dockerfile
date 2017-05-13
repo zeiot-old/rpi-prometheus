@@ -1,11 +1,11 @@
-# VERSION 1.6.1
+# VERSION 1.6.2
 # AUTHOR:         Nicolas Lamirault <nicolas.lamirault@gmail.com>
 # DESCRIPTION:    zeiot/rpi-prometheus
 
 FROM resin/armv7hf-debian:jessie
 MAINTAINER Nicolas Lamirault <nicolas.lamirault@gmail.com>
 
-ENV PROMETHEUS_VERSION 1.6.1
+ENV PROMETHEUS_VERSION 1.6.2
 
 ADD https://github.com/prometheus/prometheus/releases/download/v${PROMETHEUS_VERSION}/prometheus-${PROMETHEUS_VERSION}.linux-armv7.tar.gz /prometheus.tar.gz
 
