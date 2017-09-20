@@ -1,6 +1,11 @@
 RPI Prometheus ChangeLog
 =================================
 
+# Version 1.3.0 (09/20/2017)
+
+- Migrate to Gitlab
+- Add Prometheus 1.6.x, 1.7.x
+
 # Version 1.2.0 (01/17/2017)
 
 - Add Prometheus 1.5.0
