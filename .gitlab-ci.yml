@@ -29,8 +29,7 @@ testing:
 stable:
   stage: deploy
   script:
-    - docker build -t "$CI_REGISTRY_IMAGE:${CI_COMMIT_REF_SLUG}" 1.7
-      # - docker push "$CI_REGISTRY_IMAGE:${CI_COMMIT_REF_SLUG}"
+    - docker build -t "$CI_REGISTRY_IMAGE:v1.7.1" 1.7
     - docker push "$CI_REGISTRY_IMAGE:v1.7.1"
   only:
     - tags
