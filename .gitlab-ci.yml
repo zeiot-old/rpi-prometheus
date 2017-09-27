@@ -29,7 +29,7 @@ testing:
 stable:
   stage: deploy
   script:
-    - docker build -t "$CI_REGISTRY_IMAGE:v1.7.1" 1.7
-    - docker push "$CI_REGISTRY_IMAGE:v1.7.1"
+    - docker build -t "$CI_REGISTRY_IMAGE:v1.7.2" 1.7
+    - docker push "$CI_REGISTRY_IMAGE:v1.7.2"
   only:
     - tags
