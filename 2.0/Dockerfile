@@ -1,11 +1,11 @@
-# VERSION 2.0.0-alpha0
+# VERSION 2.0.0-beta5
 # AUTHOR:         Nicolas Lamirault <nicolas.lamirault@gmail.com>
 # DESCRIPTION:    zeiot/rpi-prometheus
 
 FROM resin/armv7hf-debian:jessie
 MAINTAINER Nicolas Lamirault <nicolas.lamirault@gmail.com>
 
-ENV PROMETHEUS_VERSION 2.0.0-alpha.0
+ENV PROMETHEUS_VERSION 2.0.0-beta5
 
 ADD https://github.com/prometheus/prometheus/releases/download/v${PROMETHEUS_VERSION}/prometheus-${PROMETHEUS_VERSION}.linux-armv7.tar.gz /prometheus.tar.gz
 
