@@ -29,7 +29,9 @@ testing:
 stable:
   stage: deploy
   script:
-    - docker build -t "$CI_REGISTRY_IMAGE:v1.7.2" 1.7
-    - docker push "$CI_REGISTRY_IMAGE:v1.7.2"
+    - export VERSION=$(grep ' VERSION' 1.7/Dockerfile|awk -F" " '{ print $3 }')
+    - echo ${VERSION}
+    - docker build -t "$CI_REGISTRY_IMAGE:v${VERSION}" 1.7
+    - docker push "$CI_REGISTRY_IMAGE:v${VERSION}"
   only:
     - tags
