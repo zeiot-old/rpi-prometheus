@@ -5,7 +5,7 @@
 FROM resin/armv7hf-debian:stretch
 MAINTAINER Nicolas Lamirault <nicolas.lamirault@gmail.com>
 
-ENV PROMETHEUS_VERSION 1.8.0
+ENV PROMETHEUS_VERSION 1.8.1
 
 ADD https://github.com/prometheus/prometheus/releases/download/v${PROMETHEUS_VERSION}/prometheus-${PROMETHEUS_VERSION}.linux-armv7.tar.gz /prometheus.tar.gz
 
