@@ -63,3 +63,5 @@ deploy:hub:
     - docker build -t "$CI_REGISTRY_IMAGE:v${VERSION}" 2.0
     - docker push "$CI_REGISTRY_IMAGE:v${VERSION}"
   only:
+    - tags
+
