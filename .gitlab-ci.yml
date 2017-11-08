@@ -13,6 +13,8 @@ development:
   script:
     - docker build -t "$CI_REGISTRY_IMAGE:latest" 1.8
     - docker push "$CI_REGISTRY_IMAGE:latest"
+    - docker build -t "$CI_REGISTRY_IMAGE:latest" 2.0
+    - docker push "$CI_REGISTRY_IMAGE:latest"
   only:
     - master
 
@@ -20,6 +22,8 @@ testing:
   stage: deploy
   script:
     - docker build -t "$CI_REGISTRY_IMAGE:${CI_COMMIT_REF_SLUG}" 1.8
+    - docker push "$CI_REGISTRY_IMAGE:${CI_COMMIT_REF_SLUG}"
+    - docker build -t "$CI_REGISTRY_IMAGE:${CI_COMMIT_REF_SLUG}" 2.0
     - docker push "$CI_REGISTRY_IMAGE:${CI_COMMIT_REF_SLUG}"
   only:
     - branches
@@ -29,9 +33,13 @@ testing:
 stable:
   stage: deploy
   script:
-    - export VERSION=$(grep ' VERSION' 1.7/Dockerfile|awk -F" " '{ print $3 }')
+    - export VERSION=$(grep ' VERSION' 1.8/Dockerfile|awk -F" " '{ print $3 }')
     - echo ${VERSION}
     - docker build -t "$CI_REGISTRY_IMAGE:v${VERSION}" 1.8
+    - docker push "$CI_REGISTRY_IMAGE:v${VERSION}"
+    - export VERSION=$(grep ' VERSION' 2.0/Dockerfile|awk -F" " '{ print $3 }')
+    - echo ${VERSION}
+    - docker build -t "$CI_REGISTRY_IMAGE:v${VERSION}" 2.0
     - docker push "$CI_REGISTRY_IMAGE:v${VERSION}"
   only:
     - tags
