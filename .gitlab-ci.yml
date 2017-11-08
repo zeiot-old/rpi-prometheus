@@ -11,13 +11,13 @@ variables:
 
 .docker_hub: &docker_hub
   before_script:
-    - docker login -u $DOCKER_USER -p $DOCKER_PASS index.docker.io
+    - docker login -u $DOCKER_USER -p $DOCKER_PASS
 
 build:gitlab:
   <<: *docker_gitlab
   stage: build
   script:
-    - docker build -t "$CI_REGISTRY_IMAGE:latest" 1.8
+    - docker build -t "$CI_REGISTRY_IMAGE:1.x.latest" 1.8
     - docker push "$CI_REGISTRY_IMAGE:latest"
     - docker build -t "$CI_REGISTRY_IMAGE:latest" 2.0
     - docker push "$CI_REGISTRY_IMAGE:latest"
@@ -28,10 +28,10 @@ build:hub:
   <<: *docker_hub
   stage: build
   script:
-    - docker build -t "$CI_REGISTRY_IMAGE:latest" 1.8
-    - docker push "$CI_REGISTRY_IMAGE:latest"
-    - docker build -t "$CI_REGISTRY_IMAGE:latest" 2.0
-    - docker push "$CI_REGISTRY_IMAGE:latest"
+    - docker build -t "$DOCKER_USER/$CI_PROJECT_NAME:1.x.latest" 1.8
+    - docker push "$DOCKER_USER/$CI_PROJECT_NAME:latest"
+    - docker build -t "$DOCKER_USER/$CI_PROJECT_NAME:latest" 2.0
+    - docker push "$DOCKER_USER/$CI_PROJECT_NAME:latest"
   only:
     - master
 
