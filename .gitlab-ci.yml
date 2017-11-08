@@ -28,10 +28,10 @@ build:hub:
   <<: *docker_hub
   stage: build
   script:
-    - docker build -t "$DOCKER_USER/$CI_PROJECT_NAME:1.x.latest" 1.8
-    - docker push "$DOCKER_USER/$CI_PROJECT_NAME:1.x.latest"
-    - docker build -t "$DOCKER_USER/$CI_PROJECT_NAME:latest" 2.0
-    - docker push "$DOCKER_USER/$CI_PROJECT_NAME:latest"
+    - docker build -t "zeiot/$CI_PROJECT_NAME:1.x.latest" 1.8
+    - docker push "zeiot/$CI_PROJECT_NAME:1.x.latest"
+    - docker build -t "zeiot/$CI_PROJECT_NAME:latest" 2.0
+    - docker push "zeiot/$CI_PROJECT_NAME:latest"
   only:
     - master
 
@@ -56,12 +56,12 @@ deploy:hub:
   script:
     - export VERSION=$(grep ' VERSION' 1.8/Dockerfile|awk -F" " '{ print $3 }')
     - echo ${VERSION}
-    - docker build -t "$CI_REGISTRY_IMAGE:v${VERSION}" 1.8
-    - docker push "$CI_REGISTRY_IMAGE:v${VERSION}"
+    - docker build -t "zeiot/$CI_PROJECT_NAME:v${VERSION}" 1.8
+    - docker push "zeiot/$CI_PROJECT_NAME:v${VERSION}"
     - export VERSION=$(grep ' VERSION' 2.0/Dockerfile|awk -F" " '{ print $3 }')
     - echo ${VERSION}
-    - docker build -t "$CI_REGISTRY_IMAGE:v${VERSION}" 2.0
-    - docker push "$CI_REGISTRY_IMAGE:v${VERSION}"
+    - docker build -t "zeiot/$CI_PROJECT_NAME:v${VERSION}" 2.0
+    - docker push "zeiot/$CI_PROJECT_NAME:v${VERSION}"
   only:
     - tags
 
