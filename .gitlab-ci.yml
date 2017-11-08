@@ -18,7 +18,7 @@ build:gitlab:
   stage: build
   script:
     - docker build -t "$CI_REGISTRY_IMAGE:1.x.latest" 1.8
-    - docker push "$CI_REGISTRY_IMAGE:latest"
+    - docker push "$CI_REGISTRY_IMAGE:1.x.latest"
     - docker build -t "$CI_REGISTRY_IMAGE:latest" 2.0
     - docker push "$CI_REGISTRY_IMAGE:latest"
   only:
@@ -29,7 +29,7 @@ build:hub:
   stage: build
   script:
     - docker build -t "$DOCKER_USER/$CI_PROJECT_NAME:1.x.latest" 1.8
-    - docker push "$DOCKER_USER/$CI_PROJECT_NAME:latest"
+    - docker push "$DOCKER_USER/$CI_PROJECT_NAME:1.x.latest"
     - docker build -t "$DOCKER_USER/$CI_PROJECT_NAME:latest" 2.0
     - docker push "$DOCKER_USER/$CI_PROJECT_NAME:latest"
   only:
