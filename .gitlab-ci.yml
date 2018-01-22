@@ -51,6 +51,8 @@ deploy:gitlab:
     - echo ${VERSION}
     - docker build -t "$CI_REGISTRY_IMAGE:v${VERSION}" 2.0
     - docker push "$CI_REGISTRY_IMAGE:v${VERSION}"
+    - export VERSION=$(grep ' VERSION' 2.1/Dockerfile|awk -F" " '{ print $3 }')
+    - echo ${VERSION}
     - docker build -t "$CI_REGISTRY_IMAGE:v${VERSION}" 2.1
     - docker push "$CI_REGISTRY_IMAGE:v${VERSION}"
   only:
@@ -68,6 +70,8 @@ deploy:hub:
     - echo ${VERSION}
     - docker build -t "zeiot/$CI_PROJECT_NAME:v${VERSION}" 2.0
     - docker push "zeiot/$CI_PROJECT_NAME:v${VERSION}"
+    - export VERSION=$(grep ' VERSION' 2.1/Dockerfile|awk -F" " '{ print $3 }')
+    - echo ${VERSION}
     - docker build -t "zeiot/$CI_PROJECT_NAME:v${VERSION}" 2.1
     - docker push "zeiot/$CI_PROJECT_NAME:v${VERSION}"
   only:
