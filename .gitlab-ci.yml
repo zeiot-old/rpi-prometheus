@@ -30,6 +30,9 @@ variables:
 build:gitlab:
   <<: *docker_gitlab
   stage: build
+  before_script:
+    - apt-get update -y
+    - apt-get -y install build-essential
   script:
     # - docker build -t "$CI_REGISTRY_IMAGE:1.x.latest" 1.8
     # - docker push "$CI_REGISTRY_IMAGE:1.x.latest"
@@ -42,13 +45,18 @@ build:gitlab:
     # - docker build -t "$CI_REGISTRY_IMAGE:latest" 2.2 -f 2.2/Dockerfile.arm64
     # - docker push "$CI_REGISTRY_IMAGE:2.2.arm64.latest"
     - make build version=2.2
+    - make publish version=2.2
     - make build version=2.2 arch=arm64
+    - make publish version=2.2 arch=arm64
   only:
     - master
 
 build:hub:
   <<: *docker_hub
   stage: build
+  before_script:
+    - apt-get update -y
+    - apt-get -y install build-essential
   script:
     - docker build -t "zeiot/$CI_PROJECT_NAME:1.x.latest" 1.8
     - docker push "zeiot/$CI_PROJECT_NAME:1.x.latest"

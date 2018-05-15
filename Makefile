@@ -40,7 +40,7 @@ help:
 .PHONY: build
 build:
 	@echo -e "$(OK_COLOR)[$(APP)] build $(NAMESPACE)/$(IMAGE):v$(VERSION)-$(arch)$(NO_COLOR)"
-	@$(DOCKER) build -t $(NAMESPACE)/$(IMAGE):v${VERSION}-$(arch) $(version)
+	@$(DOCKER) build -t $(NAMESPACE)/$(IMAGE):v${VERSION}-$(arch) $(version) -f $(version)/Dockerfile.$(arch)
 
 .PHONY: run
 run:
