@@ -27,7 +27,7 @@ WARN_COLOR=\033[33;01m
 DOCKER = docker
 
 ifneq ($(version),)
-	VERSION := $(shell grep ' VERSION' ${version}/Dockerfile|awk -F" " '{ print $$3 }')
+	VERSION := $(shell grep ' VERSION' ${version}/Dockerfile.arm|awk -F" " '{ print $$3 }')
 endif
 
 arch ?= arm
