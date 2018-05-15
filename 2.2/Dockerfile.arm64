@@ -1,0 +1,50 @@
+# Copyright (C) 2016-2018 Nicolas Lamirault <nicolas.lamirault@gmail.com>
+
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# VERSION 2.2.1
+# AUTHOR:         Nicolas Lamirault <nicolas.lamirault@gmail.com>
+# DESCRIPTION:    zeiot/rpi-prometheus
+
+FROM resin/aarch64-debian:stretch
+MAINTAINER Nicolas Lamirault <nicolas.lamirault@gmail.com>
+
+ENV PROMETHEUS_VERSION 2.2.1
+
+ADD https://github.com/prometheus/prometheus/releases/download/v${PROMETHEUS_VERSION}/prometheus-${PROMETHEUS_VERSION}.linux-arm64.tar.gz /prometheus.tar.gz
+
+RUN [ "cross-build-start" ]
+
+RUN tar -xf /prometheus.tar.gz && \
+    rm /prometheus.tar.gz && \
+    mv prometheus-${PROMETHEUS_VERSION}.linux-arm64 /usr/share/prometheus && \
+    cp /usr/share/prometheus/prometheus /usr/bin/prometheus && \
+    cp /usr/share/prometheus/promtool /usr/bin/promtool && \
+    mkdir /etc/prometheus
+
+RUN ln -s /usr/share/prometheus/console_libraries /usr/share/prometheus/consoles/ && \
+    ln -s /usr/share/prometheus/prometheus.yml /etc/prometheus/prometheus.yml
+
+RUN [ "cross-build-end" ]
+
+EXPOSE     9090
+
+VOLUME     [ "/prometheus" ]
+
+ENTRYPOINT [ "/usr/bin/prometheus" ]
+
+CMD        [ "-config.file=/etc/prometheus/prometheus.yml", \
+             "-storage.local.path=/prometheus", \
+             "-web.console.libraries=/usr/share/prometheus/console_libraries", \
+             "-web.console.templates=/usr/share/prometheus/consoles" ]:x
+
