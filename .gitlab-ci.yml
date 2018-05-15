@@ -35,9 +35,9 @@ build:gitlab:
   <<: *docker_gitlab
   stage: build
   script:
-    - docker build -t "$CI_REGISTRY_IMAGE:latest" 2.2 -f 2.2/Dockerfile.arm
+    - docker build -t "$CI_REGISTRY_IMAGE:2.2.arm.latest" 2.2 -f 2.2/Dockerfile.arm
     - docker push "$CI_REGISTRY_IMAGE:2.2.arm.latest"
-    - docker build -t "$CI_REGISTRY_IMAGE:latest" 2.2 -f 2.2/Dockerfile.arm64
+    - docker build -t "$CI_REGISTRY_IMAGE:2.2.arm64.latest" 2.2 -f 2.2/Dockerfile.arm64
     - docker push "$CI_REGISTRY_IMAGE:2.2.arm64.latest"
 
   only:
@@ -47,9 +47,9 @@ build:hub:
   <<: *docker_hub
   stage: build
   script:
-    - docker build -t "zeiot/$CI_PROJECT_NAME:latest" 2.2 -f 2.2/Dockerfile.arm
+    - docker build -t "zeiot/$CI_PROJECT_NAME:2.2.arm.latest" 2.2 -f 2.2/Dockerfile.arm
     - docker push "zeiot/$CI_PROJECT_NAME:2.2.arm.latest"
-    - docker build -t "zeiot/$CI_PROJECT_NAME:latest" 2.2 -f 2.2/Dockerfile.arm64
+    - docker build -t "zeiot/$CI_PROJECT_NAME:2.2.arm64.latest" 2.2 -f 2.2/Dockerfile.arm64
     - docker push "zeiot/$CI_PROJECT_NAME:2.2.arm64.latest"
   only:
     - master
