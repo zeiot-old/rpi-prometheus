@@ -12,12 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-image: docker:git
+image: docker:stable
+
 services:
   - docker:dind
 
 variables:
-  DOCKER_DRIVER: overlay
+  DOCKER_DRIVER: overlay2
+
+before_script:
+  - docker info
 
 .docker_gitlab: &docker_gitlab
   before_script:
@@ -30,42 +34,21 @@ variables:
 build:gitlab:
   <<: *docker_gitlab
   stage: build
-  before_script:
-    - apt-get update -y
-    - apt-get -y install build-essential
   script:
-    # - docker build -t "$CI_REGISTRY_IMAGE:1.x.latest" 1.8
-    # - docker push "$CI_REGISTRY_IMAGE:1.x.latest"
-    # - docker build -t "$CI_REGISTRY_IMAGE:latest" 2.0
-    # - docker push "$CI_REGISTRY_IMAGE:2.0.latest"
-    # - docker build -t "$CI_REGISTRY_IMAGE:latest" 2.1
-    # - docker push "$CI_REGISTRY_IMAGE:2.1.latest"
-    # - docker build -t "$CI_REGISTRY_IMAGE:latest" 2.2
-    # - docker push "$CI_REGISTRY_IMAGE:2.2.latest"
-    # - docker build -t "$CI_REGISTRY_IMAGE:latest" 2.2 -f 2.2/Dockerfile.arm64
-    # - docker push "$CI_REGISTRY_IMAGE:2.2.arm64.latest"
-    - make build version=2.2
-    - make publish version=2.2
-    - make build version=2.2 arch=arm64
-    - make publish version=2.2 arch=arm64
+    - docker build -t "$CI_REGISTRY_IMAGE:latest" 2.2 -f 2.2/Dockerfile.arm
+    - docker push "$CI_REGISTRY_IMAGE:2.2.arm.latest"
+    - docker build -t "$CI_REGISTRY_IMAGE:latest" 2.2 -f 2.2/Dockerfile.arm64
+    - docker push "$CI_REGISTRY_IMAGE:2.2.arm64.latest"
+
   only:
     - master
 
 build:hub:
   <<: *docker_hub
   stage: build
-  before_script:
-    - apt-get update -y
-    - apt-get -y install build-essential
   script:
-    - docker build -t "zeiot/$CI_PROJECT_NAME:1.x.latest" 1.8
-    - docker push "zeiot/$CI_PROJECT_NAME:1.x.latest"
-    - docker build -t "zeiot/$CI_PROJECT_NAME:latest" 2.0
-    - docker push "zeiot/$CI_PROJECT_NAME:2.0.latest"
-    - docker build -t "zeiot/$CI_PROJECT_NAME:latest" 2.1
-    - docker push "zeiot/$CI_PROJECT_NAME:2.1.latest"
-    - docker build -t "zeiot/$CI_PROJECT_NAME:latest" 2.2
-    - docker push "zeiot/$CI_PROJECT_NAME:2.2.latest"
+    - docker build -t "zeiot/$CI_PROJECT_NAME:latest" 2.2 -f 2.2/Dockerfile.arm
+    - docker push "zeiot/$CI_PROJECT_NAME:2.2.arm.latest"
     - docker build -t "zeiot/$CI_PROJECT_NAME:latest" 2.2 -f 2.2/Dockerfile.arm64
     - docker push "zeiot/$CI_PROJECT_NAME:2.2.arm64.latest"
   only:
@@ -74,38 +57,36 @@ build:hub:
 deploy:gitlab:
   <<: *docker_gitlab
   stage: deploy
+  before_script:
+    - apt-get update -y
+    - apt-get -y install build-essential
   script:
-    - export VERSION=$(grep ' VERSION' 1.8/Dockerfile|awk -F" " '{ print $3 }')
+    - export VERSION=$(grep ' VERSION' 2.2/Dockerfile.arm|awk -F" " '{ print $3 }')
     - echo ${VERSION}
-    - docker build -t "$CI_REGISTRY_IMAGE:v${VERSION}" 1.8
-    - docker push "$CI_REGISTRY_IMAGE:v${VERSION}"
-    - export VERSION=$(grep ' VERSION' 2.0/Dockerfile|awk -F" " '{ print $3 }')
+    - docker build -t "$CI_REGISTRY_IMAGE:v${VERSION}.arm" 2.2 -f 2.2/Dockerfile.arm
+    - docker push "$CI_REGISTRY_IMAGE:v${VERSION}.arm"
+    - export VERSION=$(grep ' VERSION' 2.2/Dockerfile.arm64|awk -F" " '{ print $3 }')
     - echo ${VERSION}
-    - docker build -t "$CI_REGISTRY_IMAGE:v${VERSION}" 2.0
-    - docker push "$CI_REGISTRY_IMAGE:v${VERSION}"
-    - export VERSION=$(grep ' VERSION' 2.1/Dockerfile|awk -F" " '{ print $3 }')
-    - echo ${VERSION}
-    - docker build -t "$CI_REGISTRY_IMAGE:v${VERSION}" 2.1
-    - docker push "$CI_REGISTRY_IMAGE:v${VERSION}"
+    - docker build -t "$CI_REGISTRY_IMAGE:v${VERSION}.arm64" 2.2 -f 2.2/Dockerfile.arm64
+    - docker push "$CI_REGISTRY_IMAGE:v${VERSION}.arm64"
   only:
     - tags
 
 deploy:hub:
   <<: *docker_hub
   stage: deploy
+  before_script:
+    - apt-get update -y
+    - apt-get -y install build-essential
   script:
-    - export VERSION=$(grep ' VERSION' 1.8/Dockerfile|awk -F" " '{ print $3 }')
+    - export VERSION=$(grep ' VERSION' 2.2/Dockerfile.arm|awk -F" " '{ print $3 }')
     - echo ${VERSION}
-    - docker build -t "zeiot/$CI_PROJECT_NAME:v${VERSION}" 1.8
-    - docker push "zeiot/$CI_PROJECT_NAME:v${VERSION}"
-    - export VERSION=$(grep ' VERSION' 2.0/Dockerfile|awk -F" " '{ print $3 }')
+    - docker build -t "zeiot/$CI_PROJECT_NAME:v${VERSION}.arm" 2.2 -f 2.2/Dockerfile.arm
+    - docker push "zeiot/$CI_PROJECT_NAME:v${VERSION}.arm"
+    - export VERSION=$(grep ' VERSION' 2.2/Dockerfile.arm64|awk -F" " '{ print $3 }')
     - echo ${VERSION}
-    - docker build -t "zeiot/$CI_PROJECT_NAME:v${VERSION}" 2.0
-    - docker push "zeiot/$CI_PROJECT_NAME:v${VERSION}"
-    - export VERSION=$(grep ' VERSION' 2.1/Dockerfile|awk -F" " '{ print $3 }')
-    - echo ${VERSION}
-    - docker build -t "zeiot/$CI_PROJECT_NAME:v${VERSION}" 2.1
-    - docker push "zeiot/$CI_PROJECT_NAME:v${VERSION}"
+    - docker build -t "zeiot/$CI_PROJECT_NAME:v${VERSION}.arm64" 2.2 -f 2.2/Dockerfile.arm64
+    - docker push "zeiot/$CI_PROJECT_NAME:v${VERSION}.arm64"
   only:
     - tags
 

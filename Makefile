@@ -13,8 +13,11 @@
 # limitations under the License.
 
 APP=zeiot
+
 NAMESPACE=$(APP)
 IMAGE=rpi-prometheus
+
+REGISTRY_IMAGE ?= $(NAMESPACE)/$(IMAGE)
 
 NO_COLOR=\033[0m
 OK_COLOR=\033[32;01m
@@ -36,16 +39,17 @@ help:
 	@echo -e "$(WARN_COLOR)- build version=xx   : Make the Docker image$(NO_COLOR)"
 	@echo -e "$(WARN_COLOR)- publish version=xx : Publish the image$(NO_COLOR)"
 	@echo -e "optional argument: arch=$(arch)"
+	@echo -e "Registry: $(REGISTRY_IMAGE)"
 
 .PHONY: build
 build:
-	@echo -e "$(OK_COLOR)[$(APP)] build $(NAMESPACE)/$(IMAGE):v$(VERSION)-$(arch)$(NO_COLOR)"
-	@$(DOCKER) build -t $(NAMESPACE)/$(IMAGE):v${VERSION}-$(arch) $(version) -f $(version)/Dockerfile.$(arch)
+	@echo -e "$(OK_COLOR)[$(APP)] build $(REGISTRY_IMAGE):v$(VERSION)-$(arch)$(NO_COLOR)"
+	@$(DOCKER) build -t $(REGISTRY_IMAGE):v${VERSION}-$(arch) $(version) -f $(version)/Dockerfile.$(arch)
 
 .PHONY: run
 run:
-	@echo -e "$(OK_COLOR)[$(APP)] run $(NAMESPACE)/$(IMAGE):v$(VERSION)-$(arch)$(NO_COLOR)"
-	@$(DOCKER) run --rm=true -p 9090:9090 $(NAMESPACE)/$(IMAGE):v$(VERSION)-$(arch)
+	@echo -e "$(OK_COLOR)[$(APP)] run $(REGISTRY_IMAGE):v$(VERSION)-$(arch)$(NO_COLOR)"
+	@$(DOCKER) run --rm=true -p 9090:9090 $(REGISTRY_IMAGE):v$(VERSION)-$(arch)
 
 .PHONY: login
 login:
@@ -53,5 +57,5 @@ login:
 
 .PHONY: publish-arm
 publish:
-	@echo -e "$(OK_COLOR)[$(APP)] Publish $(NAMESPACE)/$(IMAGE):v$(VERSION)-$(arch)$(NO_COLOR)"
-	@$(DOCKER) push $(NAMESPACE)/$(IMAGE):v$(VERSION)-$(arch)
+	@echo -e "$(OK_COLOR)[$(APP)] Publish $(REGISTRY_IMAGE):v$(VERSION)-$(arch)$(NO_COLOR)"
+	@$(DOCKER) push $(REGISTRY_IMAGE):v$(VERSION)-$(arch)
