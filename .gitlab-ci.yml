@@ -57,9 +57,6 @@ build:hub:
 deploy:gitlab:
   <<: *docker_gitlab
   stage: deploy
-  before_script:
-    - apt-get update -y
-    - apt-get -y install build-essential
   script:
     - export VERSION=$(grep ' VERSION' 2.2/Dockerfile.arm|awk -F" " '{ print $3 }')
     - echo ${VERSION}
@@ -75,9 +72,6 @@ deploy:gitlab:
 deploy:hub:
   <<: *docker_hub
   stage: deploy
-  before_script:
-    - apt-get update -y
-    - apt-get -y install build-essential
   script:
     - export VERSION=$(grep ' VERSION' 2.2/Dockerfile.arm|awk -F" " '{ print $3 }')
     - echo ${VERSION}
