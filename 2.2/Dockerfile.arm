@@ -17,7 +17,12 @@
 # DESCRIPTION:    zeiot/rpi-prometheus
 
 FROM resin/armv7hf-debian:stretch
-MAINTAINER Nicolas Lamirault <nicolas.lamirault@gmail.com>
+
+LABEL summary="Prometheus for ARM" \
+      description="Prometheus for ARM devices" \
+      name="zeiot/rpi-prometheus" \
+      url="https://github.com/zeiot/rpi-prometheus" \
+      maintainer="Nicolas Lamirault <nicolas.lamirault@gmail.com>"
 
 ENV PROMETHEUS_VERSION 2.2.1
 
