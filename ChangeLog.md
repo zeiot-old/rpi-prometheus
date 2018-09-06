@@ -1,5 +1,9 @@
 # RPI Prometheus ChangeLog
 
+Version 1.7.0 (09/06/2018)
+
+- Add Prometheus 2.3.x
+
 ## Version 1.6.0 (05/15/2018)
 
 - Support arm and arm64
